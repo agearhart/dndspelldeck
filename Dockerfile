@@ -14,4 +14,4 @@ RUN unzip dndSpellbookPy.zip
 
 WORKDIR DnD-Spelldeck-master
 
-ENTRYPOINT python3 generate.py > spells.tex && latexmk -pdfps cards.tex printable.tex && ls -al
+ENTRYPOINT python3 generate.py > spells.tex && latexmk -pdfps cards.tex printable.tex && ls -al && cp *.pdf /opt/output

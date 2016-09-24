@@ -4,7 +4,7 @@
 from python:3.6-slim
 
 #volume mapping for output
-VOLUME ["/output"]
+VOLUME ["/opt/output"]
 
 RUN apt-get update && apt-get install -y texlive-full && apt-get -y install wget
 
@@ -14,4 +14,4 @@ RUN unzip dndSpellbookPy.zip
 
 WORKDIR DnD-Spelldeck-master
 
-ENTRYPOINT python3 generate.py > spells.tex && latexmk -xelatex spells.tex printable.tex && latexmk -pdf printable.tex /output/spellCards.pdf
+ENTRYPOINT python3 generate.py > spells.tex && latexmk -pdfps cards.tex printable.tex && ls -al

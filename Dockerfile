@@ -12,6 +12,10 @@ RUN wget -O dndSpellbookPy.zip "https://github.com/StephenSwat/DnD-Spelldeck/arc
 
 RUN unzip dndSpellbookPy.zip
 
+RUN wget -O Mrs-Eaves-OT-Roman.ttf "http://fontsup.com/download/74505.html"
+
+RUN cp Mrs-Eaves-OT-Roman.ttf /usr/share/fonts/
+
 WORKDIR DnD-Spelldeck-master
 
-ENTRYPOINT python3 generate.py > spells.tex && latexmk -pdfps cards.tex printable.tex && ls -al && cp *.pdf /opt/output
+ENTRYPOINT fc-cache -f -v && python3 generate.py > spells.tex && latexmk -pdfps -xelatex cards.tex printable.tex && ls -al && cp *.pdf /opt/output

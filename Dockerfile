@@ -6,16 +6,20 @@ from python:3.6-slim
 #volume mapping for output
 VOLUME ["/opt/output"]
 
-RUN apt-get update && apt-get install -y texlive-full && apt-get -y install wget
+#install LaTeX
+RUN apt-get update && apt-get install -y texlive-full
 
-RUN wget -O dndSpellbookPy.zip "https://github.com/StephenSwat/DnD-Spelldeck/archive/master.zip"
+# add missing font
+ADD http://fontsup.com/download/74505.html /usr/share/fonts/
+
+#update system font list
+RUN fc-cache -f -v
+
+# download card generation python
+ADD https://github.com/StephenSwat/DnD-Spelldeck/archive/master.zip dndSpellbookPy.zip
 
 RUN unzip dndSpellbookPy.zip
 
-RUN wget -O Mrs-Eaves-OT-Roman.ttf "http://fontsup.com/download/74505.html"
-
-RUN cp Mrs-Eaves-OT-Roman.ttf /usr/share/fonts/
-
 WORKDIR DnD-Spelldeck-master
 
-ENTRYPOINT fc-cache -f -v && python3 generate.py > spells.tex && latexmk -pdfps -xelatex cards.tex printable.tex && ls -al && cp *.pdf /opt/output
+ENTRYPOINT python3 generate.py > tex/spells.tex && latexmk -cd -pdfps -xelatex tex/cards.tex tex/printable.tex && cp tex/printable.pdf /opt/output

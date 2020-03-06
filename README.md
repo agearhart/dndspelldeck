@@ -8,7 +8,9 @@ With this Dockerfile you don't need to know git, python, nor LaTeX. To use this 
 https://www.docker.com/products/docker-desktop
 
 Once installed you can use run the Dockerfile to to generate the PDFs for you by running the command:
+```bash
 docker run -it -v c:/temp:/opt/output pnzrdrgoon/dndspelldeck:latest
+```
 
 ## Docker Paramaters
 ### -it

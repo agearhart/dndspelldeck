@@ -19,4 +19,6 @@ For interactive processes (like a shell), you must use -i -t together in order t
 ### -v
 This is a volume mount and directs the script where the output files should go.  In the example above /opt/output of the Dockerfile is pointed to C:\Temp folder.  This means that any output generated from the execution of the Dockerfile is written to a file in C:Temp
 
+This also requires that the drive mounted as part of the volume mount must be shared with Docker, https://docs.microsoft.com/en-gb/archive/blogs/stevelasker/configuring-docker-for-windows-volumes
+
 Once complete you should be able to find the PDF generated at C:\Temp
